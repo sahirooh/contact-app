@@ -1,11 +1,39 @@
-import React from 'react'
+import { useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
+import Searchbox from "./components/Searchbox";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./config/firebase";
+import ContactCard from "./components/ContactCard";
 
 const App = () => {
-  return (
-    <div
-    className='font-bold text-xl'
-    >App</div>
-  )
-}
+  const [contacts, setContacts] = useState([]);
 
-export default App
+  useEffect(() => {
+    const getContacts = async () => {
+      try {
+        const contactsRef = collection(db, "contacts"); 
+        const data = await getDocs(contactsRef);
+        const contactlist = data.docs.map((doc) => {
+          return {
+            ...doc.data(),
+            id: doc.id,
+          }
+        })
+        setContacts(contactlist);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getContacts();
+  }, []);
+
+  return (
+    <div className="max-w-[360px] mx-auto">
+      <Navbar />
+      <Searchbox />
+      <ContactCard contacts={contacts} />
+    </div>
+  );
+};
+
+export default App;
