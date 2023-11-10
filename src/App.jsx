@@ -4,6 +4,7 @@ import Searchbox from "./components/Searchbox";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
+import Modal from "./components/Modal";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -32,6 +33,7 @@ const App = () => {
       <Navbar />
       <Searchbox />
       <ContactCard contacts={contacts} />
+      <Modal />
     </div>
   );
 };

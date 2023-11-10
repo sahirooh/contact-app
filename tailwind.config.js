@@ -8,6 +8,7 @@ export default {
         red: "#D01C28",
         yellow: "#FFEAAE",
         purple: "#5F00D9",
+        orange: "#F6820C",
       },
     },
   },
