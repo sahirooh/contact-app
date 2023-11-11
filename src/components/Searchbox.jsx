@@ -1,9 +1,8 @@
-import React from 'react'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { AiFillPlusCircle } from 'react-icons/ai'
+import React from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import { AiFillPlusCircle } from "react-icons/ai";
 
-const Searchbox = () => {
-
+const Searchbox = ({ isOpen }) => {
   return (
     <div className="flex relative gap-2 items-center">
       <AiOutlineSearch className="absolute text-white text-3xl pl-2" />
@@ -12,10 +11,12 @@ const Searchbox = () => {
         type="text"
         placeholder="Search Contacts"
       />
-      <AiFillPlusCircle className='text-5xl text-white cursor-pointer' />
+      <AiFillPlusCircle
+        onClick={isOpen}
+        className="text-5xl text-white cursor-pointer"
+      />
     </div>
   );
+};
 
-}
-
-export default Searchbox
+export default Searchbox;

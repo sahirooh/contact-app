@@ -8,6 +8,15 @@ import Modal from "./components/Modal";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const isOpen = () => {
+    setShowModal(true);
+  }
+
+  const isClose = () => {
+    setShowModal(false);
+  }
 
   useEffect(() => {
     const getContacts = async () => {
@@ -31,9 +40,9 @@ const App = () => {
   return (
     <div className="max-w-[360px] mx-auto">
       <Navbar />
-      <Searchbox />
+      <Searchbox isOpen={isOpen} />
       <ContactCard contacts={contacts} />
-      <Modal />
+      <Modal isOpen={showModal} isClose={isClose} >gg </Modal>
     </div>
   );
 };
