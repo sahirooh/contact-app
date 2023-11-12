@@ -1,8 +1,9 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { AiOutlineClose } from "react-icons/ai";
 
-const Modal = ({ isOpen, isClose }) => {
-  return (
+const Modal = ({ isOpen, isClose, children }) => {
+  return createPortal(
     <>
       {isOpen && (
         <>
@@ -13,16 +14,8 @@ const Modal = ({ isOpen, isClose }) => {
                 className="cursor-pointer text-xl"
               />
             </div>
-            <div className="flex flex-col gap-4">
-              <label htmlFor="name">
-                Name <input type="text" className="border px-2" />
-              </label>
-
-              <label htmlFor="email">
-                Email <input type="text" className="border px-2" />
-              </label>
-              <textarea className="border" name="text" id="text"></textarea>
-            </div>
+            
+            {children}
           </div>
 
           <div
@@ -32,7 +25,7 @@ const Modal = ({ isOpen, isClose }) => {
         </>
       )}
     </>
-  );
+  ,document.getElementById("portal"));
 };
 
 export default Modal;

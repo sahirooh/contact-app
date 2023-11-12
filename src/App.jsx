@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
 import Modal from "./components/Modal";
+import UpdateDetails from "./components/UpdateDetails";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -42,7 +43,7 @@ const App = () => {
       <Navbar />
       <Searchbox isOpen={isOpen} />
       <ContactCard contacts={contacts} />
-      <Modal isOpen={showModal} isClose={isClose} >gg </Modal>
+      <UpdateDetails isOpen={isOpen} isClose={isClose} />
     </div>
   );
 };
