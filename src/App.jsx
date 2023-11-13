@@ -4,7 +4,6 @@ import Searchbox from "./components/Searchbox";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
-import Modal from "./components/Modal";
 import UpdateDetails from "./components/UpdateDetails";
 
 const App = () => {
@@ -43,7 +42,7 @@ const App = () => {
       <Navbar />
       <Searchbox isOpen={isOpen} />
       <ContactCard contacts={contacts} />
-      <UpdateDetails isOpen={isOpen} isClose={isClose} />
+      <UpdateDetails isOpen={showModal} isClose={isClose} />
     </div>
   );
 };
