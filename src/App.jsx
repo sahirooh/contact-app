@@ -5,30 +5,24 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
 import UpdateDetails from "./components/UpdateDetails";
+import useDisclose from "./hooks/useDisclose";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
-  const [showModal, setShowModal] = useState(false);
 
-  const isOpen = () => {
-    setShowModal(true);
-  }
-
-  const isClose = () => {
-    setShowModal(false);
-  }
+  const { isOpen, showModal, isClose } = useDisclose();
 
   useEffect(() => {
     const getContacts = async () => {
       try {
-        const contactsRef = collection(db, "contacts"); 
+        const contactsRef = collection(db, "contacts");
         const data = await getDocs(contactsRef);
         const contactlist = data.docs.map((doc) => {
           return {
             ...doc.data(),
             id: doc.id,
-          }
-        })
+          };
+        });
         setContacts(contactlist);
       } catch (error) {
         console.log(error);
