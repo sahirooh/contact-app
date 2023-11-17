@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Searchbox from "./components/Searchbox";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
 import UpdateDetails from "./components/UpdateDetails";
 import useDisclose from "./hooks/useDisclose";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -16,14 +18,17 @@ const App = () => {
     const getContacts = async () => {
       try {
         const contactsRef = collection(db, "contacts");
-        const data = await getDocs(contactsRef);
-        const contactlist = data.docs.map((doc) => {
-          return {
-            ...doc.data(),
-            id: doc.id,
-          };
+
+        onSnapshot(contactsRef, (snapshot) => {
+          const contactlist = snapshot.docs.map((doc) => {
+            return {
+              ...doc.data(),
+              id: doc.id,
+            };
+          });
+          setContacts(contactlist);
+          return contactlist;
         });
-        setContacts(contactlist);
       } catch (error) {
         console.log(error);
       }
@@ -36,7 +41,8 @@ const App = () => {
       <Navbar />
       <Searchbox isOpen={isOpen} />
       <ContactCard contacts={contacts} />
-      <UpdateDetails isOpen={showModal} isClose={isClose} />
+      <UpdateDetails showModal={showModal} isClose={isClose} />
+      <ToastContainer position="bottom-center" />
     </div>
   );
 };
